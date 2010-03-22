@@ -18,24 +18,26 @@ As this is the first release and there is much improvement to be had, I thought 
 
 == Features ==
 
- *Allows you to pick which time line of data that you would like to support
- *Displays the information in a widget on the dashboard for easy viewing
+* Allows you to pick which time line of data that you would like to support
+* Displays the information in a widget on the dashboard for easy viewing
 
 = Future Features =
 
- *If all time line ranges are selected, it will be better formatted on the widget
- *Better format in general.
- *More options to choose and display EXACTLY what you want.  IE:  not displaying "DOMAINS" information and only showing your "Earnings"
- *Storing the data in the database and only updating it ever 30 minutes
+* If all time line ranges are selected, it will be better formatted on the widget
+* Better format in general.
+* More options to choose and display EXACTLY what you want.  IE:  not displaying "DOMAINS" information and only showing your "Earnings"
+* Storing the data in the database and only updating it ever 30 minutes
 
 == Installation ==
 
 Just like any other wordpress plugin:
-Download.
-unzip into your wordpress/wp-content/plugins directory
-Active the plugin via your Administrative Interface.
-[Installing Plugins](http://codex.wordpress.org/Managing_Plugins#Installing_Plugins)
-Once activated, all  you need to do is enter your google adsense Username and Password in the settings page.  Wala!  Go to the dashboard to see your stats.
+
+* Download it.
+* Unzip into your wordpress/wp-content/plugins directory
+* Active the plugin via your Administrative Interface.
+* SEE -> [Installing Plugins](http://codex.wordpress.org/Managing_Plugins#Installing_Plugins)
+
+Once activated, all  you need to do is enter your google adsense **Username** and **Password** in the settings page.  Wala!  Go to the dashboard to see your stats.
 
 == Upgrade Notice ==
 
@@ -78,4 +80,4 @@ A.  I'm busy, I have a life and I can't possibly test everything.  If you happen
 == Changelog ==
 
 = 1.0 =
-	*Initial creataion and release
+	* Initial creataion and release
