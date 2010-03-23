@@ -1,10 +1,10 @@
 <?php
 /*
 Plugin Name: Google Adsense Summary
-Plugin URI: http://learnix.net
+Plugin URI: http://learnix.net/wordpress/
 Description: Google Adsense Summary will check your adsense page and show you what you've earned.
 It will display yesterdays, todays, this month, last month and last payment earnings.
-Version: 1.0.0
+Version: 1.0.1
 Author: agentc0re
 Author URI: http://learnix.net
 */
@@ -607,8 +607,12 @@ if (!class_exists("google_adsense_summary")) {
 			*/
 			if(strpos($data, 'cookie functionality is turned off.')) {
 				unlink($this->cookiefile);
-				echo "\n$this->cookiefile\n";
-				die("<br />Cookie functionality is not working.<br />");
+				//echo "\n$this->cookiefile\n";
+				echo "<br />This is your username:<b> $this->username </b>";
+				echo "<br />This is your password:<b> $this->password </b>";
+				die("<br />Login Attempt Failed.
+				<br />Above should be your Username and Password.  Please verify they are correct.
+				<br />If it is correct, please see the FAQ in the README.txt for troubleshooting steps.");
 			} //end if
 
 
@@ -775,4 +779,4 @@ if (!class_exists("google_adsense_summary")) {
 if (class_exists("google_adsense_summary")) {
 	$gas_pluginSeries = new google_adsense_summary();
 } //End of Class Initialize
-?> <!-- End of Main plugin PHP TAG -->
+?>

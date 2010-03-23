@@ -3,18 +3,31 @@ Contributors:  agentc0re
 Website:  http://learnix.net
 Donate link:  http://learnix.net
 Email:  gas (at) learnix (dot) net
-Tags:  google, adsense, stats, summary, tracking, wordpress, plugin, widget
+Tags:  google, adsense, stats, summary, tracking, wordpress, plugin, widget, admin, advertising
 Requires at least:  2.9.2
 Tested up to:  2.9.2
-Stable version:  1.0.0
-Stable Tag: 1.0.0
+Stable version:  1.0.1
+Stable Tag: 1.0.1
 
 == Description ==
 Adds a dashboard widget displaying your adsense data in the following ranges: TODAY, YESTERDAY, LAST7DAYS, THISMONTH, LASTMONTH and ALLTIME.
 
+This plugin requires that you have curl on your webserver and that php has the curl module loaded.  On a linux webserver you can find this out by typing the following at a command prompt (minus the quotes):
+* "php -i | grep curl"
+
+For the module:
+
+* "cat /etc/httpd/php.ini | grep curl"
+OR
+* "cat ~/php.ini | grep curl"
+
+If the last two options don't work, consult your hosting provider as your php.ini is in some none standard location.
+
 **IMPORTANT**
 
-As this is the first release and there is much improvement to be had, I thought that it was ready enough to release to the wild.  However, the display of the plugins is still a big off.  Please only choose to display two timelines at a time.  This will be fixed in future versions.
+Upgrade to 1.0.1!  Major bug fix.
+
+As this is the first release and there is much improvement to be had, I still thought that it was ready enough to release it into the wild.  However, the display of the plugin is still not exactly where I would like it.  Please only choose to display two timelines at a time.  This will be fixed in future versions.
 
 == Features ==
 
@@ -45,7 +58,7 @@ N/A
 
 == Screenshots ==
 
-Screenshots violate the Adsense ToC.  Sorry.
+Screenshots violate the Adsense ToC.
 
 == Frequently Asked Questions ==
 
@@ -58,6 +71,15 @@ A.  Yes it is.  However since I do this in my spare time, I can't guarentee that
 = Q.  Do I have to pay for the support? =
 
 A.  No.
+
+
+= Q.  I am getting a message that says "Login Attempt Failed"  What should I do? =
+
+A.  First thing is first, check your Username and Password.  Are they correct?  Do NOT email those to me!!!  Email me ONLY if they're wrong.  Next, lets go through this little checklist.
+
+* If your User/Pass were showing incorrectly, try reentering them in the options page.  If it's still showing incorrect after that, E-Mail me letting me know (Do not send me your user/pass).  I'll need to know your Wordpress version and MySQL version.
+* Does your webserver support curl with php?  Verify with "php -i | grep curl" and checking to make sure your curl module is loaded in your php.ini.
+* Save all errors you get and email them to me.  They will look something like this:  "wp-content/plugins/google-adsense-summary/google_adsense_summary.php:778"  <--That is very important
 
 
 
@@ -79,5 +101,10 @@ A.  I'm busy, I have a life and I can't possibly test everything.  If you happen
 
 == Changelog ==
 
-= 1.0 =
-	* Initial creataion and release
+= 1.0.0 =
+* Initial creataion and release
+
+= 1.0.1 =
+* Bug fix.  Had a comment on the last php closing tag which caused a few issues with other plugins and feed's.  -Thanks Eric!
+* Added some extra checks if the login process doesn't work.
+* Updated the README.txt for some troubleshooting steps
