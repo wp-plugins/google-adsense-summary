@@ -64,7 +64,7 @@ if (!class_exists("google_adsense_summary")) {
 		private $display_thismonth;
 		private $display_lastmonth;
 		private $display_alltime;
-		
+
 		/**
 		* Compatible php4 constructor
 		*/
@@ -84,8 +84,6 @@ if (!class_exists("google_adsense_summary")) {
 			load_textdomain($this->localizationDomain, $mo);
 
 			//Constants setup
-			$this->cookiefile = tempnam("", "adsense_"); //dirname(__FILE__)."/cookiefile";
-			//$this->cookiefile = $this->thispluginpath."adsense_"; //dirname(__FILE__)."/cookiefile";
 			/*
 			$this->username = $gasOptions['username'];
 			$this->password = $gasOptions['password'];
@@ -313,7 +311,7 @@ if (!class_exists("google_adsense_summary")) {
 
 			$gasResults = $this->google_adsense_summary_retrieve_data();
 			$gasOptions = $this->getAdminOptions();
-			
+
 			$gasOutput = "\n".'<table width="100%" cellpadding="10" cellspacing="10" class="gas_dashboard_widget">';
 			if ( $gasOptions['display_today'] == 'true' ) {
 				$gasOutput .= "\n\t".'<td>';
@@ -487,7 +485,7 @@ if (!class_exists("google_adsense_summary")) {
 		*/
 		function GoogleAdsenseSummaryDashboardWidgetInit() {
 			global $wp_meta_boxes;
-			
+
 			wp_add_dashboard_widget('gas-dashboard-widget', __( 'Google Adsense Summary', $this->localizationDomain ), array(&$this, 'GoogleAdsenseSummaryDashboardWidget'));
 		} // End Initialize dashboard widget
 
@@ -534,7 +532,8 @@ if (!class_exists("google_adsense_summary")) {
 			$gasOptions = $this->getAdminOptions();
 			$this->username = $gasOptions['username'];
 			$this->password = $gasOptions['password'];
-			
+			$this->cookiefile = tempnam(sys_get_temp_dir(), "adsense_");
+
 			/**
 			* Get the GA3T value for login
 			*/
@@ -558,7 +557,7 @@ if (!class_exists("google_adsense_summary")) {
 			/**
 			* Debugging purposes
 			*
-			
+
 			echo "\n<br />--------------curl_post--------------<br />\n";
 			echo $this->username;
 			echo "<br />";
@@ -582,7 +581,7 @@ if (!class_exists("google_adsense_summary")) {
 			* If we didn't set the right username and password, die
 			*/
 			if(strpos($data, 'Username and password do not match.')) {
-				unlink($this->cookiefile);
+				@unlink($this->cookiefile);
 				die("Login failed.\n");
 			} //end if
 
@@ -606,7 +605,7 @@ if (!class_exists("google_adsense_summary")) {
 			* might not be working.
 			*/
 			if(strpos($data, 'cookie functionality is turned off.')) {
-				unlink($this->cookiefile);
+				@unlink($this->cookiefile);
 				//echo "\n$this->cookiefile\n";
 				echo "<br />This is your username:<b> $this->username </b>";
 				echo "<br />This is your password:<b> $this->password </b>";
@@ -744,7 +743,7 @@ if (!class_exists("google_adsense_summary")) {
 			* Delete our cookiefile
 			*/
 			unset($report_times);
-			unlink($this->cookiefile);
+			@unlink($this->cookiefile);
 			/**
 			* This was used for debugging purposes
 			//var_export($google_adsense_summary_results);

@@ -21,13 +21,13 @@ For the module:
 OR
 * "cat ~/php.ini | grep curl"
 
+If you have all that, it's possible that if curlwrappers was not build into php that it will not work.  This hasn't been verified yet and if anyone that does have this working could check their phpinfo() and notices that they don't have it enabled, let me know so we can confirm it.
+
 If the last two options don't work, consult your hosting provider as your php.ini is in some none standard location.
 
 **IMPORTANT**
 
-Upgrade to 1.0.1!  Major bug fix.
-
-As this is the first release and there is much improvement to be had, I still thought that it was ready enough to release it into the wild.  However, the display of the plugin is still not exactly where I would like it.  Please only choose to display two timelines at a time.  This will be fixed in future versions.
+Upgrade to 1.0.2!  Important Bug Fix.  Please read the changelog before upgrading!
 
 == Features ==
 
@@ -108,3 +108,16 @@ A.  I'm busy, I have a life and I can't possibly test everything.  If you happen
 * Bug fix.  Had a comment on the last php closing tag which caused a few issues with other plugins and feed's.  -Thanks Eric!
 * Added some extra checks if the login process doesn't work.
 * Updated the README.txt for some troubleshooting steps
+
+= 1.0.2 =
+* Bug Fix.  Fixed a possible issue that may cause a problem on where the cookie files were trying to be saved.  It now should check your system paths for your temp directory and save the cookie files there
+* Bug Fix.  Fixed an issue where multiple 0 byte cookie files were being created and not deleted.  You will need to manually delete all of these files.  The name starts with, "adsense_" and after the underscore will be some random numbers and letters.  Delete all that you can find.  If you are unsure how to do that, ask your hosting provider how you can find all files that match "adsense_" and delete them.
+On a linux host you can try a few things if you know how to ssh into your server:
+find /tmp -type -f -name "adsense_*"
+If files are found you can:
+rm /tmp/adsense_*
+Some hosting providers might have your tmp directory else where.  You can change the find to your home dir.
+find ~ -type -f -name "adsense_*"
+If files are found and are in the same tmp dir and nothing that looks important you can do:
+find ~ -type -f -name "adsense_*" -exec rm {} \;
+This finds them and deletes them at the same time.  Or you can use the rm command to take care of them
