@@ -4,7 +4,7 @@ Plugin Name: Google Adsense Summary
 Plugin URI: http://learnix.net/wordpress/
 Description: Google Adsense Summary will check your adsense page and show you what you've earned.
 It will display yesterdays, todays, this month, last month and last payment earnings.
-Version: 1.0.1
+Version: 1.0.2
 Author: agentc0re
 Author URI: http://learnix.net
 */

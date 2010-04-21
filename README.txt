@@ -6,8 +6,8 @@ Email:  gas (at) learnix (dot) net
 Tags:  google, adsense, stats, summary, tracking, wordpress, plugin, widget, admin, advertising
 Requires at least:  2.9.2
 Tested up to:  2.9.2
-Stable version:  1.0.1
-Stable Tag: 1.0.1
+Stable version:  1.0.2
+Stable Tag: 1.0.2
 
 == Description ==
 Adds a dashboard widget displaying your adsense data in the following ranges: TODAY, YESTERDAY, LAST7DAYS, THISMONTH, LASTMONTH and ALLTIME.
