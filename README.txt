@@ -6,8 +6,8 @@ Email:  gas (at) learnix (dot) net
 Tags:  google, adsense, stats, summary, tracking, wordpress, plugin, widget, admin, advertising
 Requires at least:  2.9.2
 Tested up to:  2.9.2
-Stable version:  1.0.2
-Stable Tag: 1.0.2
+Stable version:  1.0.3
+Stable Tag: 1.0.3
 
 == Description ==
 Adds a dashboard widget displaying your adsense data in the following ranges: TODAY, YESTERDAY, LAST7DAYS, THISMONTH, LASTMONTH and ALLTIME.
@@ -27,7 +27,7 @@ If the last two options don't work, consult your hosting provider as your php.in
 
 **IMPORTANT**
 
-Upgrade to 1.0.2!  Important Bug Fix.  Please read the changelog before upgrading!
+Upgrade to 1.0.3!  Important Bug Fix.  Please read the changelog before upgrading!
 
 == Features ==
 
@@ -121,3 +121,6 @@ find ~ -type -f -name "adsense_*"
 If files are found and are in the same tmp dir and nothing that looks important you can do:
 find ~ -type -f -name "adsense_*" -exec rm {} \;
 This finds them and deletes them at the same time.  Or you can use the rm command to take care of them
+
+= 1.0.3 =
+* Made it so that the cookie files are getting temporarily saved in the google-adsense-summary plugin directory.

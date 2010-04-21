@@ -4,7 +4,7 @@ Plugin Name: Google Adsense Summary
 Plugin URI: http://learnix.net/wordpress/
 Description: Google Adsense Summary will check your adsense page and show you what you've earned.
 It will display yesterdays, todays, this month, last month and last payment earnings.
-Version: 1.0.2
+Version: 1.0.3
 Author: agentc0re
 Author URI: http://learnix.net
 */
@@ -95,7 +95,8 @@ if (!class_exists("google_adsense_summary")) {
 			$this->display_alltime = $gasOptions['alltime'];
 			*/
 			$this->thispluginurl = PLUGIN_URL . '/' . dirname(plugin_basename(__FILE__)).'/';
-			$this->thispluginpath = PLUGIN_PATH . '/' . dirname(plugin_basename(__FILE__)).'/';
+
+			$this->thispluginpath = WP_PLUGIN_DIR.'/'.str_replace(basename(__FILE__),"",plugin_basename(__FILE__));
 
 			//Actions
 			//register_activation_hook( __FILE__, array(&$this, 'init'));
@@ -496,7 +497,7 @@ if (!class_exists("google_adsense_summary")) {
 		// Curl Get
 		///////////////////////////////////////////////
 
-		function curl_get($url, $cookiefile) {
+		function curl_get($url) {
 			$this->curl = curl_init();
 			curl_setopt($this->curl, CURLOPT_URL, $url);
 			curl_setopt($this->curl, CURLOPT_SSL_VERIFYPEER, false);
@@ -513,7 +514,7 @@ if (!class_exists("google_adsense_summary")) {
 		// Curl Post
 		///////////////////////////////////////////////
 
-		function curl_post($url, $cookiefile, $post) {
+		function curl_post($url, $post) {
 			$this->curl = curl_init();
 			curl_setopt($this->curl, CURLOPT_URL, $url);
 			curl_setopt($this->curl, CURLOPT_POST, 1);
@@ -530,14 +531,15 @@ if (!class_exists("google_adsense_summary")) {
 
 		function google_adsense_summary_retrieve_data() {
 			$gasOptions = $this->getAdminOptions();
+			$cookietempdir = $this->thispluginpath;
 			$this->username = $gasOptions['username'];
 			$this->password = $gasOptions['password'];
-			$this->cookiefile = tempnam(sys_get_temp_dir(), "adsense_");
+			$this->cookiefile = tempnam($cookietempdir, "adsense_");
 
 			/**
 			* Get the GA3T value for login
 			*/
-			$data = $this->curl_get("https://www.google.com/accounts/ServiceLoginBox?service=adsense&ltmpl=login&ifr=true&rm=hide&fpui=3&nui=15&alwf=true&passive=true&continue=https%3A%2F%2Fwww.google.com%2Fadsense%2Flogin-box-gaiaauth&followup=https%3A%2F%2Fwww.google.com%2Fadsense%2Flogin-box-gaiaauth&hl=en_US", $this->cookiefile);
+			$data = $this->curl_get("https://www.google.com/accounts/ServiceLoginBox?service=adsense&ltmpl=login&ifr=true&rm=hide&fpui=3&nui=15&alwf=true&passive=true&continue=https%3A%2F%2Fwww.google.com%2Fadsense%2Flogin-box-gaiaauth&followup=https%3A%2F%2Fwww.google.com%2Fadsense%2Flogin-box-gaiaauth&hl=en_US");
 
 			/**
 			* Testing and debuging purposes
@@ -552,7 +554,7 @@ if (!class_exists("google_adsense_summary")) {
 			/**
 			* Login to AdSense
 			*/
-			$data = $this->curl_post("https://www.google.com/accounts/ServiceLoginBoxAuth", $this->cookiefile, "continue=https%3A%2F%2Fwww.google.com%2Fadsense%2Flogin-box-gaiaauth&followup=https%3A%2F%2Fwww.google.com%2Fadsense%2Flogin-box-gaiaauth&service=adsense&nui=15&fpui=3&ifr=true&rm=hide&ltmpl=login&hl=en_US&alwf=true&ltmpl=login&GA3T=$ga3t[1]&GALX=$galx[1]&Email=$this->username&Passwd=$this->password");
+			$data = $this->curl_post("https://www.google.com/accounts/ServiceLoginBoxAuth", "continue=https%3A%2F%2Fwww.google.com%2Fadsense%2Flogin-box-gaiaauth&followup=https%3A%2F%2Fwww.google.com%2Fadsense%2Flogin-box-gaiaauth&service=adsense&nui=15&fpui=3&ifr=true&rm=hide&ltmpl=login&hl=en_US&alwf=true&ltmpl=login&GA3T=$ga3t[1]&GALX=$galx[1]&Email=$this->username&Passwd=$this->password");
 
 			/**
 			* Debugging purposes
@@ -589,7 +591,7 @@ if (!class_exists("google_adsense_summary")) {
 			/**
 			* Authenticate login
 			*/
-			$data = $this->curl_get("https://www.google.com/accounts/CheckCookie?continue=https%3A%2F%2Fwww.google.com%2Fadsense%2Flogin-box-gaiaauth&followup=https%3A%2F%2Fwww.google.com%2Fadsense%2Flogin-box-gaiaauth&hl=en_US&service=adsense&ltmpl=login&chtml=LoginDoneHtml", $this->cookiefile);
+			$data = $this->curl_get("https://www.google.com/accounts/CheckCookie?continue=https%3A%2F%2Fwww.google.com%2Fadsense%2Flogin-box-gaiaauth&followup=https%3A%2F%2Fwww.google.com%2Fadsense%2Flogin-box-gaiaauth&hl=en_US&service=adsense&ltmpl=login&chtml=LoginDoneHtml");
 
 			/**
 			* debugging purposes
@@ -655,7 +657,7 @@ if (!class_exists("google_adsense_summary")) {
 			* the "No Data" string or we will run into offset errors.
 			*/
 			foreach($fetch_times as $key_times => &$report_times) {
-				$data = $this->curl_get("https://www.google.com/adsense/report/overview?timePeriod=$report_times", $this->cookiefile);
+				$data = $this->curl_get("https://www.google.com/adsense/report/overview?timePeriod=$report_times");
 				preg_match_all("/<td nowrap valign=\"top\" style=\"text-align\:right\" class=\"\">(.*?)<\/td>/", $data, $match);
 				/**
 				* Content
